@@ -139,7 +139,7 @@ def main():
     app_name = unicode_if_necessary(sys.argv[0])
     
     try:
-        args = list(map(unicode_if_necessary, sys.argv[1:]))
+        args = [unicode_if_necessary(x) for x in sys.argv[1:]]
         conf = Conf()
         
         if args:
