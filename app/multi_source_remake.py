@@ -22,7 +22,7 @@ from future_builtins import *
 # 
 
 import sys, os, os.path, contextlib
-from .unicode_str import unicode_if_necessary, str_if_necessary
+from .utils.safe_unicode import safe_unicode, safe_bytes
 
 class UserError(Exception):
     pass
@@ -136,10 +136,10 @@ def print_help(app_name):
     )
 
 def main():
-    app_name = unicode_if_necessary(sys.argv[0])
+    app_name = safe_unicode(sys.argv[0])
     
     try:
-        args = [unicode_if_necessary(x) for x in sys.argv[1:]]
+        args = [safe_unicode(x) for x in sys.argv[1:]]
         conf = Conf()
         
         if args:
