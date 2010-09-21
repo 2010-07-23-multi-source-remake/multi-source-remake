@@ -22,7 +22,7 @@ from future_builtins import *
 # 
 
 
-from app.multi_source_remake import main
+from app.multi_source_remake.multi_source_remake import main
 
 if __name__ == '__main__':
     error = main()

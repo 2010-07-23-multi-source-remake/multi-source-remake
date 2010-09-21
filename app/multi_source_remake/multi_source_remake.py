@@ -22,7 +22,7 @@ from future_builtins import *
 # 
 
 import sys, os, os.path, contextlib
-from .utils.safe_unicode import safe_unicode, safe_bytes
+from ..utils.safe_unicode import safe_unicode, safe_bytes
 
 class UserError(Exception):
     pass
