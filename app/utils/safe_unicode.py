@@ -24,9 +24,6 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 ENCODING_DEF = 'UTF-8'
 ENCODING_ERRORS_DEF = 'replace'
 
-_unicode = __builtins__.get('unicode', str)
-_bytes = __builtins__.get('bytes', str)
-
 def safe_unicode(
             obj,
             encoding=ENCODING_DEF,
@@ -36,14 +33,14 @@ def safe_unicode(
         encoding = ENCODING_DEF
     
     try:
-        if isinstance(obj, _unicode):
+        if isinstance(obj, unicode):
             return obj
-        elif isinstance(obj, _bytes):
-            return _unicode(obj, encoding, errors)
+        elif isinstance(obj, bytes):
+            return unicode(obj, encoding, errors)
         else:
-            return _unicode(obj)
+            return unicode(obj)
     except ValueError:
-        return _unicode()
+        return unicode()
 
 def safe_bytes(
             obj,
@@ -54,13 +51,13 @@ def safe_bytes(
         encoding = ENCODING_DEF
     
     try:
-        if isinstance(obj, _bytes):
+        if isinstance(obj, bytes):
             return obj
-        elif isinstance(obj, _unicode):
+        elif isinstance(obj, unicode):
             return obj.encode(encoding, errors)
         else:
-            return _bytes(obj)
+            return bytes(obj)
     except ValueError:
-        return _bytes()
+        return bytes()
 
 
