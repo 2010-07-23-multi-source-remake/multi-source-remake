@@ -2,7 +2,6 @@
 #-*- coding: UTF-8 -*-
 # For Python-2.6:
 from __future__ import absolute_import, division, print_function, unicode_literals
-from future_builtins import *
 # multi_source_remake.py
 #
 #
@@ -21,8 +20,11 @@ from future_builtins import *
 #
 # 
 
+
 import sys, os, os.path, contextlib
-from .unicode_str import unicode_if_necessary, str_if_necessary
+from ..utils.safe_unicode import safe_unicode, safe_bytes
+
+BUFSIZE_DEF = 512
 
 class UserError(Exception):
     pass
@@ -136,10 +138,10 @@ def print_help(app_name):
     )
 
 def main():
-    app_name = unicode_if_necessary(sys.argv[0])
+    app_name = safe_unicode(sys.argv[0])
     
     try:
-        args = [unicode_if_necessary(x) for x in sys.argv[1:]]
+        args = [safe_unicode(x) for x in sys.argv[1:]]
         conf = Conf()
         
         if args:
@@ -189,7 +191,7 @@ def main():
             raise UserError('Too few source files')
         
         if conf.bufsize is None:
-            conf.bufsize = 512
+            conf.bufsize = BUFSIZE_DEF
         
         if conf.out_path is None:
             conf.out_path = os.path.join(

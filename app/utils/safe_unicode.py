@@ -2,7 +2,6 @@
 #-*- coding: UTF-8 -*-
 # For Python-2.6:
 from __future__ import absolute_import, division, print_function, unicode_literals
-from future_builtins import *
 # unicode_str.py
 #
 #
@@ -21,26 +20,47 @@ from future_builtins import *
 #
 # 
 
-def unicode_if_necessary(obj):
-    try:
-        if isinstance(obj, str):
-            return obj.decode('UTF-8')
-        elif isinstance(obj, unicode):
-            return obj
-        else:
-            return unicode(obj)
-    except ValueError:
-        return unicode()
 
-def str_if_necessary(obj):
+ENCODING_DEF = 'UTF-8'
+ENCODING_ERRORS_DEF = 'replace'
+
+_unicode = __builtins__.get('unicode', str)
+_bytes = __builtins__.get('bytes', str)
+
+def safe_unicode(
+            obj,
+            encoding=ENCODING_DEF,
+            errors=ENCODING_ERRORS_DEF,
+        ):
+    if not encoding:
+        encoding = ENCODING_DEF
+    
     try:
-        if isinstance(obj, unicode):
-            return obj.encode('UTF-8')
-        elif isinstance(obj, str):
+        if isinstance(obj, _unicode):
             return obj
+        elif isinstance(obj, _bytes):
+            return _unicode(obj, encoding, errors)
         else:
-            return str(obj)
+            return _unicode(obj)
     except ValueError:
-        return str()
+        return _unicode()
+
+def safe_bytes(
+            obj,
+            encoding=ENCODING_DEF,
+            errors=ENCODING_ERRORS_DEF,
+        ):
+    if not encoding:
+        encoding = ENCODING_DEF
+    
+    try:
+        if isinstance(obj, _bytes):
+            return obj
+        elif isinstance(obj, _unicode):
+            return obj.encode(encoding, errors)
+        else:
+            return _bytes(obj)
+    except ValueError:
+        return _bytes()
 
 
