@@ -64,5 +64,3 @@ def safe_bytes(
         return _bytes()
 
 
-
-
