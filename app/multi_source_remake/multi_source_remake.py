@@ -24,6 +24,8 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import sys, os, os.path, contextlib
 from ..utils.safe_unicode import safe_unicode, safe_bytes
 
+BUFSIZE_DEF = 512
+
 class UserError(Exception):
     pass
 
@@ -189,7 +191,7 @@ def main():
             raise UserError('Too few source files')
         
         if conf.bufsize is None:
-            conf.bufsize = 512
+            conf.bufsize = BUFSIZE_DEF
         
         if conf.out_path is None:
             conf.out_path = os.path.join(
