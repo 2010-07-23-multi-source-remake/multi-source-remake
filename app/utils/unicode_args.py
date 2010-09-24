@@ -23,7 +23,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import sys
 
-from .safe_unicode import safe_unicode, safe_bytes
+from .safe_unicode import safe_unicode
 
 def get_app_name():
     app_name_b = sys.argv[0]
