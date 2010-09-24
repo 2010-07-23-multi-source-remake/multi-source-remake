@@ -22,7 +22,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 
 import sys, os, os.path, contextlib
-from ..utils.safe_unicode import safe_unicode
+from ..utils.safe_unicode import safe_unicode, safe_print
 from ..utils.unicode_args import get_app_name, get_args
 
 BUFSIZE_DEF = 512
@@ -104,7 +104,7 @@ def remake(conf):
                         srcs_rating[i] -= 1
                     
                     if conf.verbose:
-                        print(
+                        safe_print(
                             'Detected incorrectness:\n\tIncorrect data in:\n%s\n%s' % (
                                 '\n'.join(
                                     '\t\t%s (%s score)' % (conf.src_paths[i], srcs_rating[i])
@@ -118,11 +118,11 @@ def remake(conf):
     try:
         copy_mtime(conf.src_paths[0], conf.out_path)
     except OSError as e:
-        print('Warning: %s: %s' % (type(e), e), file=sys.stderr)
+        safe_print('Warning: %s: %s' % (type(e), e), file=sys.stderr)
     
     if conf.verbose:
-        print('Remaked \'%s\'' % conf.out_path)
-        print(
+        safe_print('Remaked \'%s\'' % conf.out_path)
+        safe_print(
             'Total data correctness:\n%s' %
             '\n'.join(
                 '\t%s: %s score' % (src_path, srcs_rating[i])
@@ -131,7 +131,7 @@ def remake(conf):
         )
 
 def print_help(app_name):
-    print(
+    safe_print(
         'Usage %(app_name)s: \n'
         '%(app_name)s [-verbose] [-bufsize=<size>] [-out=<output-file>] '
             '<main-source> <addition-source> <addition-source> ...' %
@@ -202,7 +202,7 @@ def main():
         
         remake(conf)
     except UserError as e:
-        print('%s' % e, file=sys.stderr)
+        safe_print('%s' % e, file=sys.stderr)
         print_help(app_name)
         
         return 2
