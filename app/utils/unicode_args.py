@@ -23,18 +23,24 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import sys
 
-from .safe_unicode import safe_unicode, safe_bytes
+from .safe_unicode import safe_unicode, get_fd_encoding
 
 def get_app_name():
     app_name_b = sys.argv[0]
-    app_name = safe_unicode(app_name_b, encoding=sys.stdin.encoding)
+    app_name = safe_unicode(
+        app_name_b,
+        encoding=get_fd_encoding(sys.stdin),
+    )
     
     return app_name
 
 def get_args():
     args_b = sys.argv[1:]
     args = [
-        safe_unicode(arg_b, encoding=sys.stdin.encoding)
+        safe_unicode(
+            arg_b,
+            encoding=get_fd_encoding(sys.stdin)
+        )
         for arg_b in args_b
     ]
     

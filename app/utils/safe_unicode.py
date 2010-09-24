@@ -24,6 +24,14 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 ENCODING_DEF = 'UTF-8'
 ENCODING_ERRORS_DEF = 'replace'
 
+def get_fd_encoding(fd, fd_encoding_def=None):
+    try:
+        fd_encoding = fd.encoding or fd_encoding_def
+    except AttributeError:
+        fd_encoding = fd_encoding_def
+    
+    return fd_encoding
+
 def safe_unicode(
             obj,
             encoding=ENCODING_DEF,
