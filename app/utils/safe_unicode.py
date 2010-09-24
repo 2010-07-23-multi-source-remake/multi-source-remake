@@ -48,7 +48,7 @@ def safe_unicode(
         else:
             return unicode(obj)
     except ValueError:
-        return unicode()
+        return u'<VALUE_ERROR>'
 
 def safe_bytes(
             obj,
@@ -66,6 +66,6 @@ def safe_bytes(
         else:
             return bytes(obj)
     except ValueError:
-        return bytes()
+        return b'<VALUE_ERROR>'
 
 
