@@ -23,7 +23,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import sys
 
-ENCODING_DEF = 'UTF-8'
+ENCODING_DEF = 'utf-8'
 ENCODING_ERRORS_DEF = 'replace'
 
 def get_fd_encoding(fd, fd_encoding_def=None):
