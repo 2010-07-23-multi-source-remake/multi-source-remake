@@ -23,6 +23,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import sys, os, os.path, contextlib
 from ..utils.safe_unicode import safe_unicode, safe_bytes
+from ..utils.unicode_args import get_app_name, get_args
 
 BUFSIZE_DEF = 512
 
@@ -138,10 +139,10 @@ def print_help(app_name):
     )
 
 def main():
-    app_name = safe_unicode(sys.argv[0])
+    app_name = get_app_name()
     
     try:
-        args = [safe_unicode(x) for x in sys.argv[1:]]
+        args = get_args()
         conf = Conf()
         
         if args:
