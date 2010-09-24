@@ -21,6 +21,8 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 # 
 
 
+import sys
+
 ENCODING_DEF = 'UTF-8'
 ENCODING_ERRORS_DEF = 'replace'
 
@@ -67,5 +69,16 @@ def safe_bytes(
             return bytes(obj)
     except ValueError:
         return b'<VALUE_ERROR>'
+
+def safe_print(*args, **kwargs):
+    fd = kwargs.get('file', sys.stdout)
+    encoding = get_fd_encoding(fd)
+    
+    args_b = [
+        safe_bytes(arg, encoding=encoding)
+        for arg in args
+    ]
+    
+    print(*args_b, **kwargs)
 
 
