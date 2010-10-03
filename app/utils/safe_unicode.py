@@ -23,24 +23,16 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import sys
 
-ENCODING_DEF = 'utf-8'
-ENCODING_ERRORS_DEF = 'replace'
-
-def get_fd_encoding(fd, fd_encoding_def=None):
-    try:
-        fd_encoding = fd.encoding or fd_encoding_def
-    except AttributeError:
-        fd_encoding = fd_encoding_def
-    
-    return fd_encoding
+DEFAULT_ENCODING = 'utf-8'
+DEFAULT_ENCODING_ERRORS = 'replace'
 
 def safe_unicode(
             obj,
-            encoding=ENCODING_DEF,
-            errors=ENCODING_ERRORS_DEF,
+            encoding=DEFAULT_ENCODING,
+            errors=DEFAULT_ENCODING_ERRORS,
         ):
     if not encoding:
-        encoding = ENCODING_DEF
+        encoding = DEFAULT_ENCODING
     
     try:
         if isinstance(obj, unicode):
@@ -54,11 +46,11 @@ def safe_unicode(
 
 def safe_bytes(
             obj,
-            encoding=ENCODING_DEF,
-            errors=ENCODING_ERRORS_DEF,
+            encoding=DEFAULT_ENCODING,
+            errors=DEFAULT_ENCODING_ERRORS,
         ):
     if not encoding:
-        encoding = ENCODING_DEF
+        encoding = DEFAULT_ENCODING
     
     try:
         if isinstance(obj, bytes):
@@ -72,7 +64,7 @@ def safe_bytes(
 
 def safe_print(*args, **kwargs):
     fd = kwargs.get('file', sys.stdout)
-    encoding = get_fd_encoding(fd)
+    encoding = getattr(fd, 'encoding', None)
     
     args_b = [
         safe_bytes(arg, encoding=encoding)
