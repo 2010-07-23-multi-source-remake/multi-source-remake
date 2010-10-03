@@ -27,6 +27,7 @@ from .safe_unicode import safe_unicode, get_fd_encoding
 
 def get_app_name():
     app_name_b = sys.argv[0]
+    
     app_name = safe_unicode(
         app_name_b,
         encoding=get_fd_encoding(sys.stdin),
@@ -36,10 +37,11 @@ def get_app_name():
 
 def get_args():
     args_b = sys.argv[1:]
+    
     args = [
         safe_unicode(
             arg_b,
-            encoding=get_fd_encoding(sys.stdin)
+            encoding=get_fd_encoding(sys.stdin),
         )
         for arg_b in args_b
     ]
