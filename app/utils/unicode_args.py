@@ -21,27 +21,33 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 # 
 
 
-import sys
+import sys, locale
 
-from .safe_unicode import safe_unicode, get_fd_encoding
+from .safe_unicode import safe_unicode
 
 def get_app_name():
+    # get encoding or 'None'
+    encoding = locale.getdefaultlocale()[1]
+    # get first arg as bytes in system encoding
     app_name_b = sys.argv[0]
     
     app_name = safe_unicode(
         app_name_b,
-        encoding=get_fd_encoding(sys.stdin),
+        encoding=encoding,
     )
     
     return app_name
 
 def get_args():
+    # get encoding or 'None'
+    encoding = locale.getdefaultlocale()[1]
+    # get args as bytes in system encoding
     args_b = sys.argv[1:]
     
     args = [
         safe_unicode(
             arg_b,
-            encoding=get_fd_encoding(sys.stdin),
+            encoding=encoding,
         )
         for arg_b in args_b
     ]
