@@ -1,10 +1,8 @@
-#!/usr/bin/env python2
-#-*- coding: UTF-8 -*-
-# For Python-2.6:
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+# for Python-2.6:
 from __future__ import absolute_import, division, print_function, unicode_literals
-# unicode_str.py
-#
-#
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -17,8 +15,6 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# 
 
 
 import sys, locale
